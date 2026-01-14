@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Archivo</title>
+  <title>D1V1NE 1NTERVENT1ON</title>
 
   <style>
     body {
@@ -35,16 +35,6 @@
       z-index: -1;
     }
 
-    /* LOGO */
-    .logo {
-      width: 200px;
-      margin: 60px auto 40px;
-      display: block;
-      z-index: 1;
-      position: relative;
-    }
-
-    /* SECCIONES */
     section {
       max-width: 900px;
       margin: 0 auto 100px;
@@ -52,20 +42,19 @@
     }
 
     h1 {
-      font-size: 14px;
+      font-size: 18px;
       letter-spacing: 3px;
       text-transform: uppercase;
-      opacity: 0.7;
+      opacity: 0.8;
       margin-bottom: 40px;
     }
 
-    /* VIDEOS */
     .video-item {
       margin-bottom: 70px;
     }
 
     .video-item h2 {
-      font-size: 13px;
+      font-size: 14px;
       font-weight: normal;
       letter-spacing: 2px;
       opacity: 0.8;
@@ -90,6 +79,7 @@
       text-decoration: none;
       border-bottom: 1px solid white;
       padding-bottom: 2px;
+      cursor: pointer;
     }
 
     .gift-item a:hover {
@@ -102,37 +92,64 @@
 
   <!-- VIDEO DE FONDO -->
   <video class="bg-video" autoplay loop muted playsinline>
-    <source src="logo.webm.webm" type="video/webm">
+    <source src="fondo.webm" type="video/webm">
     Tu navegador no soporta video HTML5
   </video>
 
-  <!-- CAPA OSCURA -->
   <div class="overlay"></div>
 
-  <!-- LOGO -->
-  <video 
-    class="logo"
-    src="logo.webm.webm"
-    autoplay
-    loop
-    muted
-    playsinline>
-  </video>
-
   <!-- SECCIÓN VIDEOS -->
-  <section>
-    <h1>D1V1NE 1NTERNVENT1ON</h1>
+  <section id="videos">
+    <h1>D1V1NE 1NTERVENT1ON</h1>
 
     <div class="video-item">
       <h2>01 — Nombre de la canción</h2>
-      <iframe src="https://www.youtube.com/embed/ID_VIDEO_1?controls=0&rel=0"></iframe>
+      <iframe src="https://www.youtube.com/embed/ID1?controls=0&rel=0"></iframe>
     </div>
 
-    <!-- duplica este bloque para más videos -->
+    <div class="video-item">
+      <h2>02 — Nombre de la canción</h2>
+      <iframe src="https://www.youtube.com/embed/ID2?controls=0&rel=0"></iframe>
+    </div>
+
+    <div class="video-item">
+      <h2>03 — Nombre de la canción</h2>
+      <iframe src="https://www.youtube.com/embed/ID3?controls=0&rel=0"></iframe>
+    </div>
+
+    <div class="video-item">
+      <h2>04 — Nombre de la canción</h2>
+      <iframe src="https://www.youtube.com/embed/ID4?controls=0&rel=0"></iframe>
+    </div>
+
+    <div class="video-item">
+      <h2>05 — Nombre de la canción</h2>
+      <iframe src="https://www.youtube.com/embed/ID5?controls=0&rel=0"></iframe>
+    </div>
+
+    <div class="video-item">
+      <h2>06 — Nombre de la canción</h2>
+      <iframe src="https://www.youtube.com/embed/ID6?controls=0&rel=0"></iframe>
+    </div>
+
+    <div class="video-item">
+      <h2>07 — Nombre de la canción</h2>
+      <iframe src="https://www.youtube.com/embed/ID7?controls=0&rel=0"></iframe>
+    </div>
+
+    <div class="video-item">
+      <h2>08 — Nombre de la canción</h2>
+      <iframe src="https://www.youtube.com/embed/ID8?controls=0&rel=0"></iframe>
+    </div>
+
+    <div class="video-item">
+      <h2>09 — Nombre de la canción</h2>
+      <iframe src="https://www.youtube.com/embed/ID9?controls=0&rel=0"></iframe>
+    </div>
   </section>
 
   <!-- SECCIÓN GIFT -->
-  <section>
+  <section id="gift">
     <h1>Gift</h1>
 
     <div class="gift-item">
@@ -140,7 +157,17 @@
       <a href="cancion01.mp3" download>descargar</a>
     </div>
 
-    <!-- duplica este bloque para más canciones -->
+    <div class="gift-item">
+      02 — Nombre de la canción —
+      <a href="cancion02.mp3" download>descargar</a>
+    </div>
+
+    <div class="gift-item">
+      03 — Nombre de la canción —
+      <a href="cancion03.mp3" download>descargar</a>
+    </div>
+
+    <!-- duplica hasta las 9 canciones -->
   </section>
 
 </body>
