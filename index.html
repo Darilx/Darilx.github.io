@@ -13,7 +13,6 @@
       text-align: center;
     }
 
-    /* VIDEO DE FONDO */
     .bg-video {
       position: fixed;
       top: 0;
@@ -24,7 +23,6 @@
       z-index: -2;
     }
 
-    /* CAPA OSCURA ENCIMA DEL FONDO */
     .overlay {
       position: fixed;
       top: 0;
@@ -67,7 +65,6 @@
       border: none;
     }
 
-    /* GIFT */
     .gift-item {
       margin-bottom: 25px;
       font-size: 14px;
@@ -86,13 +83,31 @@
       opacity: 0.6;
     }
   </style>
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-L1R6FBJQWB"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-L1R6FBJQWB');
+
+    // Función para registrar clicks en los botones de descarga
+    function trackDownload(cancion) {
+      gtag('event', 'download', {
+        'event_category': 'MP3',
+        'event_label': cancion
+      });
+    }
+  </script>
+
 </head>
 
 <body>
 
   <!-- VIDEO DE FONDO -->
   <video class="bg-video" autoplay loop muted playsinline>
-    <source src="fondo.webm" type="video/webm">
+    <source src="logo.webm.webm" type="video/webm">
     Tu navegador no soporta video HTML5
   </video>
 
@@ -106,42 +121,34 @@
       <h2>01 — Nombre de la canción</h2>
       <iframe src="https://www.youtube.com/embed/ID1?controls=0&rel=0"></iframe>
     </div>
-
     <div class="video-item">
       <h2>02 — Nombre de la canción</h2>
       <iframe src="https://www.youtube.com/embed/ID2?controls=0&rel=0"></iframe>
     </div>
-
     <div class="video-item">
       <h2>03 — Nombre de la canción</h2>
       <iframe src="https://www.youtube.com/embed/ID3?controls=0&rel=0"></iframe>
     </div>
-
     <div class="video-item">
       <h2>04 — Nombre de la canción</h2>
       <iframe src="https://www.youtube.com/embed/ID4?controls=0&rel=0"></iframe>
     </div>
-
     <div class="video-item">
       <h2>05 — Nombre de la canción</h2>
       <iframe src="https://www.youtube.com/embed/ID5?controls=0&rel=0"></iframe>
     </div>
-
     <div class="video-item">
       <h2>06 — Nombre de la canción</h2>
       <iframe src="https://www.youtube.com/embed/ID6?controls=0&rel=0"></iframe>
     </div>
-
     <div class="video-item">
       <h2>07 — Nombre de la canción</h2>
       <iframe src="https://www.youtube.com/embed/ID7?controls=0&rel=0"></iframe>
     </div>
-
     <div class="video-item">
       <h2>08 — Nombre de la canción</h2>
       <iframe src="https://www.youtube.com/embed/ID8?controls=0&rel=0"></iframe>
     </div>
-
     <div class="video-item">
       <h2>09 — Nombre de la canción</h2>
       <iframe src="https://www.youtube.com/embed/ID9?controls=0&rel=0"></iframe>
@@ -153,21 +160,18 @@
     <h1>Gift</h1>
 
     <div class="gift-item">
-      01 — Nombre de la canción —
-      <a href="cancion01.mp3" download>descargar</a>
+      01 — Crazy Dog —
+      <a href="cancion01.mp3" download onclick="trackDownload('01 — Crazy Dog')">descargar</a>
     </div>
-
     <div class="gift-item">
       02 — Nombre de la canción —
-      <a href="cancion02.mp3" download>descargar</a>
+      <a href="cancion02.mp3" download onclick="trackDownload('02 — Nombre de la canción')">descargar</a>
     </div>
-
     <div class="gift-item">
       03 — Nombre de la canción —
-      <a href="cancion03.mp3" download>descargar</a>
+      <a href="cancion03.mp3" download onclick="trackDownload('03 — Nombre de la canción')">descargar</a>
     </div>
-
-    <!-- duplica hasta las 9 canciones -->
+    <!-- duplica hasta la 9 -->
   </section>
 
 </body>
