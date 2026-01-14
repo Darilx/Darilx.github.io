@@ -13,23 +13,62 @@
       text-align: center;
     }
 
-    video {
-      width: 220px;
-      margin: 60px auto 40px;
-      display: block;
+    /* VIDEO DE FONDO */
+    .bg-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -2;
     }
 
+    /* CAPA OSCURA ENCIMA DEL FONDO */
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.6);
+      z-index: -1;
+    }
+
+    /* LOGO */
+    .logo {
+      width: 200px;
+      margin: 60px auto 40px;
+      display: block;
+      z-index: 1;
+      position: relative;
+    }
+
+    /* SECCIONES */
+    section {
+      max-width: 900px;
+      margin: 0 auto 100px;
+      padding: 0 20px;
+    }
+
+    h1 {
+      font-size: 14px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      opacity: 0.7;
+      margin-bottom: 40px;
+    }
+
+    /* VIDEOS */
     .video-item {
-      max-width: 800px;
-      margin: 0 auto 60px;
+      margin-bottom: 70px;
     }
 
     .video-item h2 {
-      font-size: 14px;
+      font-size: 13px;
       font-weight: normal;
       letter-spacing: 2px;
-      text-transform: uppercase;
-      opacity: 0.7;
+      opacity: 0.8;
       margin-bottom: 12px;
     }
 
@@ -38,37 +77,75 @@
       aspect-ratio: 16 / 9;
       border: none;
     }
+
+    /* GIFT */
+    .gift-item {
+      margin-bottom: 25px;
+      font-size: 14px;
+      letter-spacing: 1px;
+    }
+
+    .gift-item a {
+      color: white;
+      text-decoration: none;
+      border-bottom: 1px solid white;
+      padding-bottom: 2px;
+    }
+
+    .gift-item a:hover {
+      opacity: 0.6;
+    }
   </style>
 </head>
 
 <body>
 
-  <!-- LOGO -->
+  <!-- VIDEO DE FONDO -->
   <video 
-    src="logo.webm" 
-    autoplay 
-    loop 
-    muted 
+    class="bg-video"
+    src="logo.webm.webm"  <!-- Aquí pones el nombre de tu video de fondo -->
+    autoplay
+    loop
+    muted
     playsinline>
   </video>
 
-  <!-- VIDEO 1 -->
-  <div class="video-item">
-    <h2>01 — despierto</h2>
-    <iframe src="https://www.youtube.com/embed/RgbyTmGUBSY?controls=0&rel=0"></iframe>
-  </div>
+  <!-- CAPA OSCURA -->
+  <div class="overlay"></div>
 
-  <!-- VIDEO 2 -->
-  <div class="video-item">
-    <h2>02 — NOMBRE DE LA CANCIÓN</h2>
-    <iframe src="https://www.youtube.com/embed/ID_DEL_VIDEO_2?controls=0&rel=0"></iframe>
-  </div>
+  <!-- LOGO -->
+  <video 
+    class="logo"
+    src="logo.webm" <!-- Tu logo que ya subiste -->
+    autoplay
+    loop
+    muted
+    playsinline>
+  </video>
 
-  <!-- VIDEO 3 -->
-  <div class="video-item">
-    <h2>03 — NOMBRE DE LA CANCIÓN</h2>
-    <iframe src="https://www.youtube.com/embed/ID_DEL_VIDEO_3?controls=0&rel=0"></iframe>
-  </div>
+  <!-- SECCIÓN VIDEOS -->
+  <section>
+    <h1>Videos</h1>
+
+    <div class="video-item">
+      <h2>01 — despierto</h2>
+      <iframe src="https://www.youtube.com/embed/RgbyTmGUBSY?controls=0&rel=0"></iframe>
+    </div>
+
+    <!-- duplica este bloque para más videos -->
+  </section>
+
+  <!-- SECCIÓN GIFT -->
+  <section>
+    <h1>Gift</h1>
+
+    <div class="gift-item">
+      01 — Nombre de la canción —
+      <a href="cancion01.mp3" download>descargar</a>
+    </div>
+
+    <!-- duplica este bloque para más canciones -->
+  </section>
 
 </body>
 </html>
