@@ -82,6 +82,23 @@
     .gift-item a:hover {
       opacity: 0.6;
     }
+
+    /* CSS agregado para la luz que sigue al mouse */
+    #mouseAura {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      pointer-events: none;
+      background: radial-gradient(circle, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0) 70%);
+      transform: translate(-50%, -50%);
+      mix-blend-mode: screen;
+      transition: transform 0.05s ease;
+      z-index: 9999;
+    }
+
   </style>
 
   <!-- Google Analytics -->
@@ -142,7 +159,9 @@
     </div>
     <!-- duplica hasta la 9 -->
   </section>
- <div id="mouseAura"></div>
+
+  <!-- LUZ QUE SIGUE EL MOUSE -->
+  <div id="mouseAura"></div>
 
   <script>
     // Seguir el movimiento del mouse
@@ -151,7 +170,6 @@
       aura.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
     });
   </script>
-
 
 </body>
 </html>
