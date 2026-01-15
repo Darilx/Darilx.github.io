@@ -142,6 +142,16 @@
     </div>
     <!-- duplica hasta la 9 -->
   </section>
+ <div id="mouseAura"></div>
+
+  <script>
+    // Seguir el movimiento del mouse
+    const aura = document.getElementById('mouseAura');
+    document.addEventListener('mousemove', (e) => {
+      aura.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
+    });
+  </script>
+
 
 </body>
 </html>
