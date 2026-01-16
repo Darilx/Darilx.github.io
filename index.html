@@ -232,8 +232,8 @@ Así como no existen dos huellas dactilares iguales, y así como la biodiversida
         particles.push({
           x: mouse.x + (Math.random() - 0.5) * 25,
           y: mouse.y + (Math.random() - 0.5) * 25,
-          vx: (Math.random() - 0.5) * 0.4,
-          vy: (Math.random() - 0.5) * 0.4,
+          vx: (Math.random() - 0.5) * 0.15,
+          vy: (Math.random() - 0.5) * 0.15,
           life: energyActive ? 120 : 80,
           hue: energyActive ? Math.random() * 360 : 0
         });
@@ -241,6 +241,7 @@ Así como no existen dos huellas dactilares iguales, y así como la biodiversida
     });
 
     function animate() {
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.08)';
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       particles.forEach((p, i) => {
@@ -252,7 +253,7 @@ Así como no existen dos huellas dactilares iguales, y así como la biodiversida
         ctx.arc(p.x, p.y, 2, 0, Math.PI * 2);
 
         if (energyActive) {
-          ctx.fillStyle = `hsla(${p.hue}, 100%, 80%, ${p.life / 120})`;
+          ctx.fillStyle = `hsla(${p.hue}, 300%, 180%, ${p.life / 120})`;
         } else {
           ctx.fillStyle = `rgba(255,255,255,${p.life / 100})`;
         }
