@@ -59,9 +59,26 @@
       margin-bottom: 12px;
     }
 
+    /* 🎧 AUDIO ESTILO VIDRIO */
     audio {
       width: 100%;
+      max-width: 600px;
+      margin-top: 10px;
+
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+
+      border-radius: 14px;
+      padding: 10px;
+
+      filter: invert(1) brightness(0.9);
+      opacity: 0.85;
       outline: none;
+    }
+
+    audio:hover {
+      opacity: 1;
     }
 
     .gift-item {
@@ -82,20 +99,39 @@
       opacity: 0.6;
     }
 
-    /* Aura del mouse */
+    /* ⚡ AURA DEL MOUSE */
     #mouseAura {
       position: fixed;
       top: 0;
       left: 0;
-      width: 80px;
-      height: 80px;
+      width: 60px;
+      height: 60px;
       border-radius: 50%;
       pointer-events: none;
-      background: radial-gradient(circle, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0) 70%);
-      transform: translate(-50%, -50%);
+
+      background: radial-gradient(
+        circle,
+        rgba(255,255,255,0.6) 0%,
+        rgba(255,255,255,0.25) 30%,
+        rgba(255,255,255,0.05) 55%,
+        rgba(255,255,255,0) 70%
+      );
+
       mix-blend-mode: screen;
-      transition: transform 0.05s ease;
+      transform: translate(-50%, -50%);
+      filter: blur(4px);
       z-index: 9999;
+    }
+
+    /* ✨ PARTÍCULAS */
+    #energyParticles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 9998;
     }
   </style>
 
@@ -107,11 +143,10 @@
     gtag('js', new Date());
     gtag('config', 'G-L1R6FBJQWB');
 
-    // Registrar descargas
     function trackDownload(cancion) {
       gtag('event', 'download', {
-        'event_category': 'MP3',
-        'event_label': cancion
+        event_category: 'MP3',
+        event_label: cancion
       });
     }
   </script>
@@ -123,12 +158,11 @@
   <!-- VIDEO DE FONDO -->
   <video class="bg-video" autoplay loop muted playsinline>
     <source src="logo.webm.webm" type="video/webm">
-    Tu navegador no soporta video HTML5
   </video>
 
   <div class="overlay"></div>
 
-  <!-- SECCIÓN AUDIO -->
+  <!-- AUDIO -->
   <section id="videos">
     <h1>D1V1NE 1NTERVENT1ON</h1>
 
@@ -136,13 +170,11 @@
       <h2>01 — Crazy Dog</h2>
       <audio controls preload="none">
         <source src="CRAZYDOGV1.mp3" type="audio/mpeg">
-        Tu navegador no soporta audio
       </audio>
     </div>
-
   </section>
 
-  <!-- SECCIÓN GIFT -->
+  <!-- GIFT -->
   <section id="gift">
     <h1>Gift</h1>
 
@@ -150,18 +182,11 @@
       01 — Crazy Dog —
       <a href="CRAZYDOGV1.mp3" download onclick="trackDownload('01 — Crazy Dog')">Aprender</a>
     </div>
-    <div class="gift-item">
-      02 — Revelación en proceso... —
-      <a href="cancion02.mp3" download onclick="trackDownload('02 — TXCHNXCRXTX')">Buscar</a>
-    </div>
-    <div class="gift-item">
-      03 — Revelación en proceso... —
-      <a href="cancion03.mp3" download onclick="trackDownload('03 — BBXTSX')">Preguntar</a>
-    </div>
   </section>
 
-  <!-- Aura -->
+  <!-- AURA + PARTÍCULAS -->
   <div id="mouseAura"></div>
+  <canvas id="energyParticles"></canvas>
 
   <script>
     // Aura sigue el mouse
@@ -170,22 +195,72 @@
       aura.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
     });
 
-    // Solo un audio a la vez
+    // Solo un audio a la vez + Analytics PLAY
     const audios = document.querySelectorAll('audio');
     audios.forEach(audio => {
       audio.addEventListener('play', () => {
         audios.forEach(other => {
           if (other !== audio) other.pause();
         });
-       
-        // 📊 Registrar PLAY en Analytics
-      gtag('event', 'play', {
-        event_category: 'Audio',
-        event_label: audio.querySelector('source')?.getAttribute('src') || 'audio'
+
+        gtag('event', 'play', {
+          event_category: 'Audio',
+          event_label: audio.querySelector('source')?.getAttribute('src') || 'audio'
+        });
       });
     });
-  });
-</script>
-      
+
+    // ✨ PARTÍCULAS DE ENERGÍA
+    const canvas = document.getElementById('energyParticles');
+    const ctx = canvas.getContext('2d');
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    let particles = [];
+    let mouse = { x: canvas.width / 2, y: canvas.height / 2 };
+
+    window.addEventListener('resize', () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+
+    document.addEventListener('mousemove', (e) => {
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+
+      for (let i = 0; i < 2; i++) {
+        particles.push({
+          x: mouse.x + (Math.random() - 0.5) * 20,
+          y: mouse.y + (Math.random() - 0.5) * 20,
+          vx: (Math.random() - 0.5) * 0.3,
+          vy: (Math.random() - 0.5) * 0.3,
+          life: 80
+        });
+      }
+    });
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      particles.forEach((p, i) => {
+        p.x += p.vx;
+        p.y += p.vy;
+        p.life--;
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, 2, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255,255,255,${p.life / 100})`;
+        ctx.fill();
+
+        if (p.life <= 0) particles.splice(i, 1);
+      });
+
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+  </script>
+
 </body>
 </html>
