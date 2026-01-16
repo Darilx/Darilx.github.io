@@ -177,9 +177,15 @@
         audios.forEach(other => {
           if (other !== audio) other.pause();
         });
+       
+        // 📊 Registrar PLAY en Analytics
+      gtag('event', 'play', {
+        event_category: 'Audio',
+        event_label: audio.querySelector('source')?.getAttribute('src') || 'audio'
       });
     });
-  </script>
-
+  });
+</script>
+      
 </body>
 </html>
