@@ -64,14 +64,11 @@
       width: 100%;
       max-width: 600px;
       margin-top: 10px;
-
       background: rgba(255,255,255,0.08);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
-
       border-radius: 14px;
       padding: 10px;
-
       filter: invert(1) brightness(0.9);
       opacity: 0.85;
       outline: none;
@@ -99,7 +96,7 @@
       opacity: 0.6;
     }
 
-    /* ⚡ AURA DEL MOUSE */
+    /* ⚡ AURA */
     #mouseAura {
       position: fixed;
       top: 0;
@@ -108,15 +105,11 @@
       height: 60px;
       border-radius: 50%;
       pointer-events: none;
-
-      background: radial-gradient(
-        circle,
+      background: radial-gradient(circle,
         rgba(255,255,255,0.6) 0%,
         rgba(255,255,255,0.25) 30%,
         rgba(255,255,255,0.05) 55%,
-        rgba(255,255,255,0) 70%
-      );
-
+        rgba(255,255,255,0) 70%);
       mix-blend-mode: screen;
       transform: translate(-50%, -50%);
       filter: blur(4px);
@@ -150,19 +143,16 @@
       });
     }
   </script>
-
 </head>
 
 <body>
 
-  <!-- VIDEO DE FONDO -->
   <video class="bg-video" autoplay loop muted playsinline>
     <source src="logo.webm.webm" type="video/webm">
   </video>
 
   <div class="overlay"></div>
 
-  <!-- AUDIO -->
   <section id="videos">
     <h1>D1V1NE 1NTERVENT1ON</h1>
 
@@ -174,46 +164,50 @@
     </div>
   </section>
 
-  <!-- GIFT -->
   <section id="gift">
     <h1>Gift</h1>
-
     <div class="gift-item">
       01 — Crazy Dog —
       <a href="CRAZYDOGV1.mp3" download onclick="trackDownload('01 — Crazy Dog')">Aprender</a>
     </div>
   </section>
 
-  <!-- AURA + PARTÍCULAS -->
   <div id="mouseAura"></div>
   <canvas id="energyParticles"></canvas>
 
   <script>
-    // Aura sigue el mouse
     const aura = document.getElementById('mouseAura');
-    document.addEventListener('mousemove', (e) => {
+    document.addEventListener('mousemove', e => {
       aura.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
     });
 
-    // Solo un audio a la vez + Analytics PLAY
     const audios = document.querySelectorAll('audio');
+    let energyActive = false;
+    let particleIntensity = 2;
+
     audios.forEach(audio => {
       audio.addEventListener('play', () => {
         audios.forEach(other => {
           if (other !== audio) other.pause();
         });
 
+        energyActive = true;
+        particleIntensity = 6;
+
         gtag('event', 'play', {
           event_category: 'Audio',
           event_label: audio.querySelector('source')?.getAttribute('src') || 'audio'
         });
       });
+
+      audio.addEventListener('pause', () => {
+        energyActive = false;
+        particleIntensity = 2;
+      });
     });
 
-    // ✨ PARTÍCULAS DE ENERGÍA
     const canvas = document.getElementById('energyParticles');
     const ctx = canvas.getContext('2d');
-
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 
@@ -225,17 +219,18 @@
       canvas.height = window.innerHeight;
     });
 
-    document.addEventListener('mousemove', (e) => {
+    document.addEventListener('mousemove', e => {
       mouse.x = e.clientX;
       mouse.y = e.clientY;
 
-      for (let i = 0; i < 2; i++) {
+      for (let i = 0; i < particleIntensity; i++) {
         particles.push({
-          x: mouse.x + (Math.random() - 0.5) * 20,
-          y: mouse.y + (Math.random() - 0.5) * 20,
-          vx: (Math.random() - 0.5) * 0.3,
-          vy: (Math.random() - 0.5) * 0.3,
-          life: 80
+          x: mouse.x + (Math.random() - 0.5) * 25,
+          y: mouse.y + (Math.random() - 0.5) * 25,
+          vx: (Math.random() - 0.5) * 0.4,
+          vy: (Math.random() - 0.5) * 0.4,
+          life: energyActive ? 120 : 80,
+          hue: energyActive ? Math.random() * 360 : 0
         });
       }
     });
@@ -250,9 +245,14 @@
 
         ctx.beginPath();
         ctx.arc(p.x, p.y, 2, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255,255,255,${p.life / 100})`;
-        ctx.fill();
 
+        if (energyActive) {
+          ctx.fillStyle = `hsla(${p.hue}, 100%, 80%, ${p.life / 120})`;
+        } else {
+          ctx.fillStyle = `rgba(255,255,255,${p.life / 100})`;
+        }
+
+        ctx.fill();
         if (p.life <= 0) particles.splice(i, 1);
       });
 
