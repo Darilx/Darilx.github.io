@@ -59,10 +59,9 @@
       margin-bottom: 12px;
     }
 
-    iframe {
+    audio {
       width: 100%;
-      aspect-ratio: 16 / 9;
-      border: none;
+      outline: none;
     }
 
     .gift-item {
@@ -83,7 +82,7 @@
       opacity: 0.6;
     }
 
-    /* CSS agregado para la luz que sigue al mouse */
+    /* Aura del mouse */
     #mouseAura {
       position: fixed;
       top: 0;
@@ -98,22 +97,17 @@
       transition: transform 0.05s ease;
       z-index: 9999;
     }
-
   </style>
 
   <!-- Google Analytics -->
- 
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-L1R6FBJQWB"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-L1R6FBJQWB"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-L1R6FBJQWB');
 
-  gtag('config', 'G-L1R6FBJQWB');
-</script>
-
-    // Función para registrar clicks en los botones de descarga
+    // Registrar descargas
     function trackDownload(cancion) {
       gtag('event', 'download', {
         'event_category': 'MP3',
@@ -134,15 +128,18 @@
 
   <div class="overlay"></div>
 
-  <!-- SECCIÓN VIDEOS -->
+  <!-- SECCIÓN AUDIO -->
   <section id="videos">
     <h1>D1V1NE 1NTERVENT1ON</h1>
 
     <div class="video-item">
       <h2>01 — Crazy Dog</h2>
-      <iframe src="https://www.youtube.com/embed/CybopPmEhtg?controls=0&rel=0"></iframe>
+      <audio controls preload="none">
+        <source src="CRAZYDOGV1.mp3" type="audio/mpeg">
+        Tu navegador no soporta audio
+      </audio>
     </div>
-   
+
   </section>
 
   <!-- SECCIÓN GIFT -->
@@ -154,24 +151,33 @@
       <a href="CRAZYDOGV1.mp3" download onclick="trackDownload('01 — Crazy Dog')">Aprender</a>
     </div>
     <div class="gift-item">
-      02 — Revevacion en proceso... —
+      02 — Revelación en proceso... —
       <a href="cancion02.mp3" download onclick="trackDownload('02 — TXCHNXCRXTX')">Buscar</a>
     </div>
     <div class="gift-item">
-      03 — Revelacion en proceso... —
+      03 — Revelación en proceso... —
       <a href="cancion03.mp3" download onclick="trackDownload('03 — BBXTSX')">Preguntar</a>
     </div>
-    <!-- duplica hasta la 9 -->
   </section>
 
-  <!-- LUZ QUE SIGUE EL MOUSE -->
+  <!-- Aura -->
   <div id="mouseAura"></div>
 
   <script>
-    // Seguir el movimiento del mouse
+    // Aura sigue el mouse
     const aura = document.getElementById('mouseAura');
     document.addEventListener('mousemove', (e) => {
       aura.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
+    });
+
+    // Solo un audio a la vez
+    const audios = document.querySelectorAll('audio');
+    audios.forEach(audio => {
+      audio.addEventListener('play', () => {
+        audios.forEach(other => {
+          if (other !== audio) other.pause();
+        });
+      });
     });
   </script>
 
