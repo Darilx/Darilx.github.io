@@ -5,83 +5,134 @@
   <title>D1V1NE 1NTERVENT1ON</title>
 
   <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
     body {
-      margin: 0;
       background: black;
       color: white;
       font-family: Arial, sans-serif;
       text-align: center;
+      min-height: 100vh;
     }
 
     .bg-video {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
       object-fit: cover;
       z-index: -2;
     }
 
     .overlay {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.6);
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.62);
       z-index: -1;
     }
 
-    section {
-      max-width: 900px;
-      margin: 0 auto 100px;
-      padding: 0 20px;
+    /* NAV TABS */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      padding: 22px 30px;
+      z-index: 100;
     }
 
-    h1 {
-      font-size: 18px;
+    nav button {
+      background: none;
+      border: none;
+      color: white;
+      font-family: Arial, sans-serif;
+      font-size: 11px;
       letter-spacing: 3px;
       text-transform: uppercase;
-      opacity: 0.8;
-      margin-bottom: 40px;
+      opacity: 0.4;
+      cursor: pointer;
+      padding-bottom: 3px;
+      border-bottom: 1px solid transparent;
+      transition: opacity 0.2s, border-color 0.2s;
     }
 
+    nav button:hover { opacity: 0.75; }
+
+    nav button.active {
+      opacity: 1;
+      border-bottom-color: rgba(255,255,255,0.65);
+    }
+
+    /* PAGES */
+    .page {
+      display: none;
+      padding: 110px 20px 100px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .page.active { display: block; }
+
+    h1 {
+      font-size: 15px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      opacity: 0.7;
+      margin-bottom: 50px;
+    }
+
+    /* MUSIC */
     .video-item {
-      margin-bottom: 70px;
+      margin-bottom: 60px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
     }
 
     .video-item h2 {
-      font-size: 14px;
+      font-size: 13px;
       font-weight: normal;
       letter-spacing: 2px;
-      opacity: 0.8;
-      margin-bottom: 12px;
+      opacity: 0.75;
     }
 
-    /* 🎧 AUDIO ESTILO VIDRIO */
-    audio {
-      width: 100%;
-      max-width: 600px;
-      margin-top: 10px;
-      background: rgba(255,255,255,0.08);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-radius: 14px;
-      padding: 10px;
-      filter: invert(1) brightness(0.9);
-      opacity: 0.85;
+    audio { display: none; }
+
+    .play-btn {
+      width: 58px; height: 58px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.5);
+      background: rgba(255,255,255,0.07);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s, border-color 0.2s;
       outline: none;
     }
 
-    audio:hover {
-      opacity: 1;
+    .play-btn:hover {
+      background: rgba(255,255,255,0.16);
+      border-color: rgba(255,255,255,0.85);
     }
 
+    .play-btn svg {
+      width: 18px; height: 18px;
+      fill: white;
+    }
+
+    /* GIFT */
+    .gift-section { margin-top: 80px; }
+
     .gift-item {
-      margin-bottom: 25px;
-      font-size: 14px;
+      font-size: 13px;
       letter-spacing: 1px;
+      line-height: 1.9;
+      margin-bottom: 20px;
     }
 
     .gift-item a {
@@ -89,59 +140,104 @@
       text-decoration: none;
       border-bottom: 1px solid white;
       padding-bottom: 2px;
+    }
+
+    .gift-item a:hover { opacity: 0.6; }
+
+    /* STORE */
+    .product-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      max-width: 320px;
+      margin: 0 auto;
+    }
+
+    .product-card img {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+    }
+
+    .product-info { text-align: left; width: 100%; }
+
+    .product-name {
+      font-size: 12px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      opacity: 0.85;
+      margin-bottom: 8px;
+    }
+
+    .product-desc {
+      font-size: 12px;
+      letter-spacing: 1px;
+      opacity: 0.45;
+      line-height: 1.7;
+      margin-bottom: 14px;
+    }
+
+    .product-price {
+      font-size: 14px;
+      letter-spacing: 2px;
+      opacity: 0.9;
+      margin-bottom: 20px;
+    }
+
+    .buy-btn {
+      display: inline-block;
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: white;
+      text-decoration: none;
+      border: 1px solid rgba(255,255,255,0.45);
+      padding: 10px 30px;
+      background: transparent;
       cursor: pointer;
+      font-family: Arial, sans-serif;
+      transition: background 0.2s, border-color 0.2s;
     }
 
-    .gift-item a:hover {
-      opacity: 0.6;
+    .buy-btn:hover {
+      background: rgba(255,255,255,0.1);
+      border-color: white;
     }
 
-    /* ⚡ AURA */
+    /* AURA */
     #mouseAura {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 60px;
-      height: 60px;
+      top: 0; left: 0;
+      width: 50px; height: 50px;
       border-radius: 50%;
       pointer-events: none;
       background: radial-gradient(circle,
-        rgba(255,255,255,0.6) 0%,
-        rgba(255,255,255,0.25) 30%,
-        rgba(255,255,255,0.05) 55%,
+        rgba(255,255,255,0.5) 0%,
+        rgba(255,255,255,0.18) 40%,
         rgba(255,255,255,0) 70%);
       mix-blend-mode: screen;
       transform: translate(-50%, -50%);
-      filter: blur(4px);
+      filter: blur(5px);
       z-index: 9999;
     }
 
-    /* ✨ PARTÍCULAS */
     #energyParticles {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
       pointer-events: none;
       z-index: 9998;
     }
   </style>
 
-  <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-L1R6FBJQWB"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
     gtag('config', 'G-L1R6FBJQWB');
-
-    function trackDownload(cancion) {
-      gtag('event', 'download', {
-        event_category: 'MP3',
-        event_label: cancion
-      });
-    }
+    function trackDownload(c){ gtag('event','download',{event_category:'MP3',event_label:c}); }
   </script>
 </head>
 
@@ -150,121 +246,181 @@
   <video class="bg-video" autoplay loop muted playsinline>
     <source src="logo.webm.webm" type="video/webm">
   </video>
-
   <div class="overlay"></div>
 
-  <section id="videos">
+  <nav>
+    <button class="active" onclick="showTab('music',this)">Music</button>
+    <button onclick="showTab('store',this)">Store</button>
+  </nav>
+
+  <!-- MUSIC TAB -->
+  <div class="page active" id="tab-music">
     <h1>D1V1NE 1NTERVENT1ON</h1>
 
     <div class="video-item">
-      <h2>01 — Crazy Dog</h2>
-      <audio controls preload="none">
+      <h2>01 — DogFancy</h2>
+      <audio id="audio-01" preload="none">
         <source src="CRAZYDOGV1.mp3" type="audio/mpeg">
       </audio>
+      <button class="play-btn" id="btn-01" aria-label="Play / Pause" onclick="togglePlay('audio-01','btn-01')">
+        <svg id="svg-01" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <polygon points="6,4 20,12 6,20"/>
+        </svg>
+      </button>
     </div>
-  </section>
 
-  <section id="gift">
-    <h1>Gift</h1>
-    <div class="gift-item">
-      01 —DogFancy— 
-
-    La imaginacion no es escape, es acceso. //
-      //Imagination is not an escape, it is access.
-     
-      <a href="CRAZYDOGV1.mp3" download onclick="trackDownload('01 — Crazy Dog')">Aprender</a>
-      <img src="foil1.png" alt="" style="display:block; margin:10px auto; max-width:300px;">
+    <div class="gift-section">
+      <h1>Gift</h1>
+      <div class="gift-item">
+        01 —DogFancy—<br>
+        La imaginacion no es escape, es acceso. //<br>
+        //Imagination is not an escape, it is access.<br><br>
+        <a href="CRAZYDOGV1.mp3" download onclick="trackDownload('01 — DogFancy')">Aprender</a>
+        <img src="foil1.png" alt="" style="display:block; margin:12px auto; max-width:280px;">
+      </div>
     </div>
-  </section>
+  </div>
+
+  <!-- STORE TAB -->
+  <div class="page" id="tab-store">
+    <h1>Store</h1>
+
+    <div class="product-card">
+      <img src="foil1.png" alt="Pokemon card signed">
+      <div class="product-info">
+        <p class="product-name">Pokemon card signed</p>
+        <p class="product-desc">
+          Hand-signed.<br>
+          Ships worldwide.
+        </p>
+        <p class="product-price">$8.99</p>
+        <!-- Replace href="#" with your Gumroad / Stripe / PayPal link -->
+        <a class="buy-btn" href="#" target="_blank"
+           onclick="gtag('event','click',{event_category:'Store',event_label:'Pokemon card signed'})">
+          Buy
+        </a>
+      </div>
+    </div>
+  </div>
 
   <div id="mouseAura"></div>
   <canvas id="energyParticles"></canvas>
 
   <script>
+    /* TAB NAV */
+    function showTab(id, btn) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+      document.getElementById('tab-' + id).classList.add('active');
+      btn.classList.add('active');
+    }
+
+    /* PLAYER */
+    const PLAY_ICON  = '<polygon points="6,4 20,12 6,20"/>';
+    const PAUSE_ICON = '<rect x="5" y="4" width="4" height="16"/><rect x="15" y="4" width="4" height="16"/>';
+
+    function togglePlay(audioId, btnId) {
+      const audio = document.getElementById(audioId);
+      const n     = btnId.split('-')[1];
+      const svg   = document.getElementById('svg-' + n);
+
+      document.querySelectorAll('audio').forEach(a => {
+        if (a.id !== audioId) {
+          a.pause();
+          const on = a.id.split('-')[1];
+          const os = document.getElementById('svg-' + on);
+          if (os) os.innerHTML = PLAY_ICON;
+        }
+      });
+
+      if (audio.paused) {
+        audio.play();
+        svg.innerHTML = PAUSE_ICON;
+        energyActive = true;
+        burstIntensity = 22;
+        gtag('event','play',{event_category:'Audio',event_label:audioId});
+      } else {
+        audio.pause();
+        svg.innerHTML = PLAY_ICON;
+        energyActive = false;
+        burstIntensity = 10;
+      }
+    }
+
+    document.querySelectorAll('audio').forEach(audio => {
+      audio.addEventListener('ended', () => {
+        const n = audio.id.split('-')[1];
+        const s = document.getElementById('svg-' + n);
+        if (s) s.innerHTML = PLAY_ICON;
+        energyActive = false;
+        burstIntensity = 10;
+      });
+    });
+
+    /* AURA */
     const aura = document.getElementById('mouseAura');
     document.addEventListener('mousemove', e => {
       aura.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
     });
 
-    const audios = document.querySelectorAll('audio');
-    let energyActive = false;
-    let particleIntensity = 2;
-
-    audios.forEach(audio => {
-      audio.addEventListener('play', () => {
-        audios.forEach(other => {
-          if (other !== audio) other.pause();
-        });
-
-        energyActive = true;
-        particleIntensity = 6;
-
-        gtag('event', 'play', {
-          event_category: 'Audio',
-          event_label: audio.querySelector('source')?.getAttribute('src') || 'audio'
-        });
-      });
-
-      audio.addEventListener('pause', () => {
-        energyActive = false;
-        particleIntensity = 2;
-      });
-    });
-
+    /* SMOKE PARTICLES */
     const canvas = document.getElementById('energyParticles');
-    const ctx = canvas.getContext('2d');
-    canvas.width = window.innerWidth;
+    const ctx    = canvas.getContext('2d');
+    canvas.width  = window.innerWidth;
     canvas.height = window.innerHeight;
 
-    let particles = [];
-    let mouse = { x: canvas.width / 2, y: canvas.height / 2 };
+    let particles    = [];
+    let energyActive = false;
+    let burstIntensity = 10;
+    let globalHue    = 0;
 
     window.addEventListener('resize', () => {
-      canvas.width = window.innerWidth;
+      canvas.width  = window.innerWidth;
       canvas.height = window.innerHeight;
     });
 
     document.addEventListener('mousemove', e => {
-      mouse.x = e.clientX;
-      mouse.y = e.clientY;
+      globalHue = (globalHue + 4) % 360;
 
-      for (let i = 0; i < particleIntensity; i++) {
+      for (let i = 0; i < burstIntensity; i++) {
+        const size = Math.random() * 2.2 + 0.3;
+        const life = Math.random() * 70 + 35;
         particles.push({
-          x: mouse.x + (Math.random() - 0.5) * 25,
-          y: mouse.y + (Math.random() - 0.5) * 25,
-          vx: (Math.random() - 0.5) * 0.15,
-          vy: (Math.random() - 0.5) * 0.15,
-          life: energyActive ? 120 : 80,
-          hue: energyActive ? Math.random() * 360 : 0
+          x:       e.clientX + (Math.random() - 0.5) * 14,
+          y:       e.clientY + (Math.random() - 0.5) * 14,
+          vx:      (Math.random() - 0.5) * 0.5,
+          vy:      -(Math.random() * 0.9 + 0.15),
+          size:    size,
+          life:    life,
+          maxLife: life,
+          hue:     (globalHue + Math.random() * 50) % 360
         });
       }
     });
 
     function animate() {
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.08)';
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      particles.forEach((p, i) => {
-        p.x += p.vx;
-        p.y += p.vy;
+      for (let i = particles.length - 1; i >= 0; i--) {
+        const p = particles[i];
+        p.x    += p.vx;
+        p.y    += p.vy;
+        p.vx   *= 0.975;
+        p.vy   *= 0.988;
+        p.size *= 0.993;
         p.life--;
 
+        const alpha = (p.life / p.maxLife) * 0.7;
         ctx.beginPath();
-        ctx.arc(p.x, p.y, 2, 0, Math.PI * 2);
-
-        if (energyActive) {
-          ctx.fillStyle = `hsla(${p.hue}, 300%, 180%, ${p.life / 120})`;
-        } else {
-          ctx.fillStyle = `rgba(255,255,255,${p.life / 100})`;
-        }
-
+        ctx.arc(p.x, p.y, Math.max(p.size, 0.1), 0, Math.PI * 2);
+        ctx.fillStyle = `hsla(${p.hue}, 100%, 72%, ${alpha})`;
         ctx.fill();
+
         if (p.life <= 0) particles.splice(i, 1);
-      });
+      }
 
       requestAnimationFrame(animate);
     }
-
     animate();
   </script>
 
