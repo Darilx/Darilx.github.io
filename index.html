@@ -31,7 +31,6 @@
       z-index: -1;
     }
 
-    /* NAV TABS */
     nav {
       position: fixed;
       top: 0; left: 0; right: 0;
@@ -64,7 +63,6 @@
       border-bottom-color: rgba(255,255,255,0.65);
     }
 
-    /* PAGES */
     .page {
       display: none;
       padding: 110px 20px 100px;
@@ -82,11 +80,6 @@
       margin-bottom: 50px;
     }
 
-    /* ── LOGO VIDEO ─────────────────────────────────────
-       mix-blend-mode: screen hace que el negro desaparezca
-       y solo se vean las letras brillantes sobre el fondo.
-       Funciona perfecto si el fondo del video es negro.
-    ───────────────────────────────────────────────────── */
     .logo-wrap {
       display: flex;
       justify-content: center;
@@ -96,13 +89,12 @@
 
     .logo-wrap video {
       width: 100%;
-      max-width: 420px;   /* cambia este numero para hacerlo mas grande o mas pequeño */
+      max-width: 420px;
       height: auto;
       display: block;
       mix-blend-mode: screen;
     }
 
-    /* TRACK */
     .video-item {
       margin-bottom: 60px;
       display: flex;
@@ -145,7 +137,6 @@
       fill: white;
     }
 
-    /* GIFT */
     .gift-section { margin-top: 80px; }
 
     .gift-item {
@@ -163,6 +154,12 @@
     }
 
     .gift-item a:hover { opacity: 0.6; }
+
+    .gift-item img {
+      display: block;
+      margin: 12px auto;
+      max-width: 280px;
+    }
 
     /* STORE */
     .product-card {
@@ -225,7 +222,6 @@
       border-color: white;
     }
 
-    /* AURA */
     #mouseAura {
       position: fixed;
       top: 0; left: 0;
@@ -263,7 +259,6 @@
 
 <body>
 
-  <!-- FONDO -->
   <video class="bg-video" autoplay loop muted playsinline>
     <source src="logo.webm.webm" type="video/webm">
   </video>
@@ -271,14 +266,12 @@
 
   <nav>
     <button class="active" onclick="showTab('music',this)">Music</button>
-    <button onclick="showTab('store',this)">Store</button>
+    <button onclick="showTab('store',this)">Card Dealer</button>
   </nav>
 
-  <!-- ── MUSIC TAB ─────────────────────────────────────── -->
+  <!-- MUSIC TAB -->
   <div class="page active" id="tab-music">
 
-    <!-- LOGO ANIMADO -->
-    <!-- El nombre del archivo tiene un espacio, por eso va con %20 en la URL -->
     <div class="logo-wrap">
       <video autoplay loop muted playsinline>
         <source src="d1v1ne%20logo%20pagina.mp4" type="video/mp4">
@@ -304,14 +297,15 @@
         La imaginacion no es escape, es acceso. //<br>
         //Imagination is not an escape, it is access.<br><br>
         <a href="CRAZYDOGV1.mp3" download onclick="trackDownload('01 — DogFancy')">Aprender</a>
-        <img src="foil1.png" alt="" style="display:block; margin:12px auto; max-width:280px;">
+        <!-- foil1 image ONLY on music tab -->
+        <img src="foil1.png" alt="">
       </div>
     </div>
   </div>
 
-  <!-- ── STORE TAB ──────────────────────────────────────── -->
+  <!-- CARD DEALER TAB -->
   <div class="page" id="tab-store">
-    <h1>Store</h1>
+    <h1>Card Dealer</h1>
 
     <div class="product-card">
       <img src="foil1.png" alt="Pokemon card signed">
@@ -322,10 +316,16 @@
           Ships worldwide.
         </p>
         <p class="product-price">$8.99</p>
-        <!-- Reemplaza href="#" con tu link de pago -->
-        <a class="buy-btn" href="#" target="_blank"
+        <!--
+          STRIPE: reemplaza el href con tu Payment Link de Stripe.
+          Ejemplo: https://buy.stripe.com/test_xxxxxxxxxxxxxxxx
+          Lo obtienes en: dashboard.stripe.com → Payment Links → Create link
+        -->
+        <a class="buy-btn"
+           href="https://book.stripe.com/aFaaEXcAo1iw6K5gpX43S01"
+           target="_blank"
            onclick="gtag('event','click',{event_category:'Store',event_label:'Pokemon card signed'})">
-          Buy
+          Buy — $8.99
         </a>
       </div>
     </div>
@@ -335,7 +335,6 @@
   <canvas id="energyParticles"></canvas>
 
   <script>
-    /* TAB NAV */
     function showTab(id, btn) {
       document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
       document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
@@ -343,7 +342,6 @@
       btn.classList.add('active');
     }
 
-    /* PLAYER */
     const PLAY_ICON  = '<polygon points="6,4 20,12 6,20"/>';
     const PAUSE_ICON = '<rect x="5" y="4" width="4" height="16"/><rect x="15" y="4" width="4" height="16"/>';
 
@@ -355,21 +353,20 @@
       document.querySelectorAll('audio').forEach(a => {
         if (a.id !== audioId) {
           a.pause();
-          const on = a.id.split('-')[1];
-          const os = document.getElementById('svg-' + on);
+          const os = document.getElementById('svg-' + a.id.split('-')[1]);
           if (os) os.innerHTML = PLAY_ICON;
         }
       });
 
       if (audio.paused) {
         audio.play();
-        svg.innerHTML = PAUSE_ICON;
+        svg.innerHTML  = PAUSE_ICON;
         energyActive   = true;
         burstIntensity = 22;
         gtag('event','play',{event_category:'Audio',event_label:audioId});
       } else {
         audio.pause();
-        svg.innerHTML = PLAY_ICON;
+        svg.innerHTML  = PLAY_ICON;
         energyActive   = false;
         burstIntensity = 10;
       }
@@ -377,21 +374,18 @@
 
     document.querySelectorAll('audio').forEach(audio => {
       audio.addEventListener('ended', () => {
-        const n = audio.id.split('-')[1];
-        const s = document.getElementById('svg-' + n);
+        const s = document.getElementById('svg-' + audio.id.split('-')[1]);
         if (s) s.innerHTML = PLAY_ICON;
         energyActive   = false;
         burstIntensity = 10;
       });
     });
 
-    /* AURA */
     const aura = document.getElementById('mouseAura');
     document.addEventListener('mousemove', e => {
       aura.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
     });
 
-    /* SMOKE PARTICLES */
     const canvas = document.getElementById('energyParticles');
     const ctx    = canvas.getContext('2d');
     canvas.width  = window.innerWidth;
@@ -428,12 +422,9 @@
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       for (let i = particles.length - 1; i >= 0; i--) {
         const p = particles[i];
-        p.x    += p.vx;
-        p.y    += p.vy;
-        p.vx   *= 0.975;
-        p.vy   *= 0.988;
-        p.size *= 0.993;
-        p.life--;
+        p.x += p.vx; p.y += p.vy;
+        p.vx *= 0.975; p.vy *= 0.988;
+        p.size *= 0.993; p.life--;
         const alpha = (p.life / p.maxLife) * 0.7;
         ctx.beginPath();
         ctx.arc(p.x, p.y, Math.max(p.size, 0.1), 0, Math.PI * 2);
