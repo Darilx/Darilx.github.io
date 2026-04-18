@@ -82,7 +82,27 @@
       margin-bottom: 50px;
     }
 
-    /* MUSIC */
+    /* ── LOGO VIDEO ─────────────────────────────────────
+       mix-blend-mode: screen hace que el negro desaparezca
+       y solo se vean las letras brillantes sobre el fondo.
+       Funciona perfecto si el fondo del video es negro.
+    ───────────────────────────────────────────────────── */
+    .logo-wrap {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 40px;
+    }
+
+    .logo-wrap video {
+      width: 100%;
+      max-width: 420px;   /* cambia este numero para hacerlo mas grande o mas pequeño */
+      height: auto;
+      display: block;
+      mix-blend-mode: screen;
+    }
+
+    /* TRACK */
     .video-item {
       margin-bottom: 60px;
       display: flex;
@@ -243,6 +263,7 @@
 
 <body>
 
+  <!-- FONDO -->
   <video class="bg-video" autoplay loop muted playsinline>
     <source src="logo.webm.webm" type="video/webm">
   </video>
@@ -253,9 +274,16 @@
     <button onclick="showTab('store',this)">Store</button>
   </nav>
 
-  <!-- MUSIC TAB -->
+  <!-- ── MUSIC TAB ─────────────────────────────────────── -->
   <div class="page active" id="tab-music">
-    <h1>D1V1NE 1NTERVENT1ON</h1>
+
+    <!-- LOGO ANIMADO -->
+    <!-- El nombre del archivo tiene un espacio, por eso va con %20 en la URL -->
+    <div class="logo-wrap">
+      <video autoplay loop muted playsinline>
+        <source src="d1v1ne%20logo%20pagina.mp4" type="video/mp4">
+      </video>
+    </div>
 
     <div class="video-item">
       <h2>01 — DogFancy</h2>
@@ -281,7 +309,7 @@
     </div>
   </div>
 
-  <!-- STORE TAB -->
+  <!-- ── STORE TAB ──────────────────────────────────────── -->
   <div class="page" id="tab-store">
     <h1>Store</h1>
 
@@ -294,7 +322,7 @@
           Ships worldwide.
         </p>
         <p class="product-price">$8.99</p>
-        <!-- Replace href="#" with your Gumroad / Stripe / PayPal link -->
+        <!-- Reemplaza href="#" con tu link de pago -->
         <a class="buy-btn" href="#" target="_blank"
            onclick="gtag('event','click',{event_category:'Store',event_label:'Pokemon card signed'})">
           Buy
@@ -336,13 +364,13 @@
       if (audio.paused) {
         audio.play();
         svg.innerHTML = PAUSE_ICON;
-        energyActive = true;
+        energyActive   = true;
         burstIntensity = 22;
         gtag('event','play',{event_category:'Audio',event_label:audioId});
       } else {
         audio.pause();
         svg.innerHTML = PLAY_ICON;
-        energyActive = false;
+        energyActive   = false;
         burstIntensity = 10;
       }
     }
@@ -352,7 +380,7 @@
         const n = audio.id.split('-')[1];
         const s = document.getElementById('svg-' + n);
         if (s) s.innerHTML = PLAY_ICON;
-        energyActive = false;
+        energyActive   = false;
         burstIntensity = 10;
       });
     });
@@ -369,10 +397,10 @@
     canvas.width  = window.innerWidth;
     canvas.height = window.innerHeight;
 
-    let particles    = [];
-    let energyActive = false;
+    let particles     = [];
+    let energyActive  = false;
     let burstIntensity = 10;
-    let globalHue    = 0;
+    let globalHue     = 0;
 
     window.addEventListener('resize', () => {
       canvas.width  = window.innerWidth;
@@ -381,16 +409,14 @@
 
     document.addEventListener('mousemove', e => {
       globalHue = (globalHue + 4) % 360;
-
       for (let i = 0; i < burstIntensity; i++) {
-        const size = Math.random() * 2.2 + 0.3;
         const life = Math.random() * 70 + 35;
         particles.push({
           x:       e.clientX + (Math.random() - 0.5) * 14,
           y:       e.clientY + (Math.random() - 0.5) * 14,
           vx:      (Math.random() - 0.5) * 0.5,
           vy:      -(Math.random() * 0.9 + 0.15),
-          size:    size,
+          size:    Math.random() * 2.2 + 0.3,
           life:    life,
           maxLife: life,
           hue:     (globalHue + Math.random() * 50) % 360
@@ -400,7 +426,6 @@
 
     function animate() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-
       for (let i = particles.length - 1; i >= 0; i--) {
         const p = particles[i];
         p.x    += p.vx;
@@ -409,16 +434,13 @@
         p.vy   *= 0.988;
         p.size *= 0.993;
         p.life--;
-
         const alpha = (p.life / p.maxLife) * 0.7;
         ctx.beginPath();
         ctx.arc(p.x, p.y, Math.max(p.size, 0.1), 0, Math.PI * 2);
         ctx.fillStyle = `hsla(${p.hue}, 100%, 72%, ${alpha})`;
         ctx.fill();
-
         if (p.life <= 0) particles.splice(i, 1);
       }
-
       requestAnimationFrame(animate);
     }
     animate();
