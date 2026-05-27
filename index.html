@@ -2,7 +2,8 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>D1V1NE 1NTERVENT1ON</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MOED</title>
 
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -13,6 +14,7 @@
       font-family: Arial, sans-serif;
       text-align: center;
       min-height: 100vh;
+      overflow-x: hidden;
     }
 
     .bg-video {
@@ -27,7 +29,7 @@
       position: fixed;
       top: 0; left: 0;
       width: 100%; height: 100%;
-      background: rgba(0,0,0,0.62);
+      background: rgba(0,0,0,0.55);
       z-index: -1;
     }
 
@@ -46,180 +48,46 @@
       border: none;
       color: white;
       font-family: Arial, sans-serif;
-      font-size: 11px;
-      letter-spacing: 3px;
+      font-size: 22px;
+      letter-spacing: 8px;
       text-transform: uppercase;
-      opacity: 0.4;
+      opacity: 1;
       cursor: pointer;
-      padding-bottom: 3px;
-      border-bottom: 1px solid transparent;
-      transition: opacity 0.2s, border-color 0.2s;
+      padding-bottom: 8px;
+      border-bottom: 1px solid rgba(255,255,255,0.65);
     }
 
-    nav button:hover { opacity: 0.75; }
-
-    nav button.active {
-      opacity: 1;
-      border-bottom-color: rgba(255,255,255,0.65);
+    @media (max-width: 600px) {
+      nav button {
+        font-size: 18px;
+        letter-spacing: 6px;
+      }
     }
 
     .page {
-      display: none;
-      padding: 110px 20px 100px;
-      max-width: 900px;
-      margin: 0 auto;
-    }
-
-    .page.active { display: block; }
-
-    h1 {
-      font-size: 15px;
-      letter-spacing: 4px;
-      text-transform: uppercase;
-      opacity: 0.7;
-      margin-bottom: 50px;
-    }
-
-    .logo-wrap {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin-bottom: 40px;
-    }
-
-    .logo-wrap video {
-      width: 100%;
-      max-width: 420px;
-      height: auto;
-      display: block;
-      mix-blend-mode: screen;
-    }
-
-    .video-item {
-      margin-bottom: 60px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 14px;
-    }
-
-    .video-item h2 {
-      font-size: 13px;
-      font-weight: normal;
-      letter-spacing: 2px;
-      opacity: 0.75;
-    }
-
-    audio { display: none; }
-
-    .play-btn {
-      width: 58px; height: 58px;
-      border-radius: 50%;
-      border: 1px solid rgba(255,255,255,0.5);
-      background: rgba(255,255,255,0.07);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      cursor: pointer;
+      min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: background 0.2s, border-color 0.2s;
-      outline: none;
-    }
-
-    .play-btn:hover {
-      background: rgba(255,255,255,0.16);
-      border-color: rgba(255,255,255,0.85);
-    }
-
-    .play-btn svg {
-      width: 18px; height: 18px;
-      fill: white;
-    }
-
-    .gift-section { margin-top: 80px; }
-
-    .gift-item {
-      font-size: 13px;
-      letter-spacing: 1px;
-      line-height: 1.9;
-      margin-bottom: 20px;
-    }
-
-    .gift-item a {
-      color: white;
-      text-decoration: none;
-      border-bottom: 1px solid white;
-      padding-bottom: 2px;
-    }
-
-    .gift-item a:hover { opacity: 0.6; }
-
-    .gift-item img {
-      display: block;
-      margin: 12px auto;
-      max-width: 280px;
-    }
-
-    /* STORE */
-    .product-card {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 20px;
-      max-width: 320px;
+      padding: 110px 24px 80px;
+      max-width: 720px;
       margin: 0 auto;
     }
 
-    .product-card img {
-      width: 100%;
-      aspect-ratio: 1 / 1;
-      object-fit: cover;
-    }
-
-    .product-info { text-align: left; width: 100%; }
-
-    .product-name {
-      font-size: 12px;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      opacity: 0.85;
-      margin-bottom: 8px;
-    }
-
-    .product-desc {
-      font-size: 12px;
-      letter-spacing: 1px;
-      opacity: 0.45;
-      line-height: 1.7;
-      margin-bottom: 14px;
-    }
-
-    .product-price {
-      font-size: 14px;
+    .legend {
+      font-size: 13px;
       letter-spacing: 2px;
-      opacity: 0.9;
-      margin-bottom: 20px;
-    }
-
-    .buy-btn {
-      display: inline-block;
-      font-size: 10px;
-      letter-spacing: 3px;
+      line-height: 2;
+      opacity: 0.92;
       text-transform: uppercase;
-      color: white;
-      text-decoration: none;
-      border: 1px solid rgba(255,255,255,0.45);
-      padding: 10px 30px;
-      background: transparent;
-      cursor: pointer;
-      font-family: Arial, sans-serif;
-      transition: background 0.2s, border-color 0.2s;
     }
 
-    .buy-btn:hover {
-      background: rgba(255,255,255,0.1);
-      border-color: white;
+    .legend .accent {
+      display: block;
+      margin-top: 28px;
+      font-size: 11px;
+      letter-spacing: 3px;
+      opacity: 0.65;
     }
 
     #mouseAura {
@@ -245,6 +113,107 @@
       pointer-events: none;
       z-index: 9998;
     }
+
+    @media (max-width: 600px) {
+      .legend { font-size: 12px; letter-spacing: 1.5px; }
+      .legend .accent { font-size: 10px; }
+    }
+
+    .tracks {
+      margin-top: 50px;
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+      align-items: center;
+    }
+
+    .track {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .play-btn {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      outline: none;
+      background:
+        radial-gradient(circle at 30% 25%,
+          rgba(255,255,255,0.9) 0%,
+          rgba(220,220,225,0.6) 18%,
+          rgba(140,140,150,0.4) 45%,
+          rgba(60,60,70,0.5) 75%,
+          rgba(20,20,25,0.7) 100%);
+      box-shadow:
+        inset 0 1px 2px rgba(255,255,255,0.6),
+        inset 0 -2px 4px rgba(0,0,0,0.5),
+        0 2px 8px rgba(0,0,0,0.5),
+        0 0 0 1px rgba(255,255,255,0.15);
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .play-btn:hover {
+      transform: scale(1.05);
+      box-shadow:
+        inset 0 1px 2px rgba(255,255,255,0.8),
+        inset 0 -2px 4px rgba(0,0,0,0.5),
+        0 3px 12px rgba(255,255,255,0.2),
+        0 0 0 1px rgba(255,255,255,0.3);
+    }
+
+    .play-btn:active {
+      transform: scale(0.97);
+    }
+
+    .play-btn svg {
+      width: 18px;
+      height: 18px;
+      fill: rgba(20,20,25,0.85);
+      filter: drop-shadow(0 1px 1px rgba(255,255,255,0.4));
+    }
+
+    .track-name {
+      font-size: 12px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      opacity: 0.85;
+    }
+
+    .corner-note {
+      position: fixed;
+      bottom: 22px;
+      right: 24px;
+      max-width: 260px;
+      text-align: right;
+      font-size: 9px;
+      letter-spacing: 1.5px;
+      line-height: 1.7;
+      opacity: 0.55;
+      text-transform: uppercase;
+      z-index: 50;
+    }
+
+    .corner-note .heb {
+      opacity: 0.75;
+      margin-bottom: 6px;
+    }
+
+    @media (max-width: 600px) {
+      .corner-note {
+        font-size: 8px;
+        letter-spacing: 1.2px;
+        max-width: 200px;
+        bottom: 16px;
+        right: 16px;
+      }
+    }
   </style>
 
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-L1R6FBJQWB"></script>
@@ -253,131 +222,110 @@
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
     gtag('config', 'G-L1R6FBJQWB');
-    function trackDownload(c){ gtag('event','download',{event_category:'MP3',event_label:c}); }
   </script>
 </head>
 
 <body>
 
-  <video class="bg-video" autoplay loop muted playsinline>
-    <source src="logo.webm.webm" type="video/webm">
+  <video class="bg-video" autoplay loop muted playsinline preload="auto" id="bgVideo">
+    <source src="ahh%20nefileo%20visualizer%20v2.mp4" type="video/mp4">
+    Tu navegador no soporta video HTML5.
   </video>
   <div class="overlay"></div>
 
+  <script>
+    const bgVid = document.getElementById('bgVideo');
+    bgVid.addEventListener('error', () => {
+      console.error('Video error:', bgVid.error);
+    });
+    bgVid.addEventListener('loadeddata', () => {
+      console.log('Video loaded OK');
+    });
+    bgVid.play().catch(err => console.warn('Autoplay blocked:', err));
+  </script>
+
   <nav>
-    <button class="active" onclick="showTab('music',this)">Music</button>
-    <button onclick="showTab('store',this)">Card Dealer</button>
+    <button class="active">MOED</button>
   </nav>
 
-  <!-- MUSIC TAB -->
-  <div class="page active" id="tab-music">
+  <div class="page">
+    <div class="legend">
+      Nefileo es el tiny album<br>
+      que precede a Divine Intervention.<br><br>
+      Divine Intervention tendrá<br>
+      un evento de early access<br>
+      para los más curiosos<br>
+      sobre el futuro.
+      <span class="accent">— Coming soon —</span>
 
-    <div class="logo-wrap">
-      <video autoplay loop muted playsinline>
-        <source src="d1v1ne%20logo%20pagina.mp4" type="video/mp4">
-      </video>
-    </div>
+      <div class="tracks">
+        <div class="track">
+          <audio id="audio-anglo" preload="none">
+            <source src="Mixea_HighNeutral_scare%20v1.wav" type="audio/wav">
+          </audio>
+          <button class="play-btn" id="btn-anglo" aria-label="Play Anglo" onclick="togglePlay('audio-anglo','btn-anglo')">
+            <svg id="svg-anglo" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <polygon points="6,4 20,12 6,20"/>
+            </svg>
+          </button>
+          <span class="track-name">Anglo</span>
+        </div>
 
-    <div class="video-item">
-      <h2>01 — DogFancy</h2>
-      <audio id="audio-01" preload="none">
-        <source src="CRAZYDOGV1.mp3" type="audio/mpeg">
-      </audio>
-      <button class="play-btn" id="btn-01" aria-label="Play / Pause" onclick="togglePlay('audio-01','btn-01')">
-        <svg id="svg-01" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <polygon points="6,4 20,12 6,20"/>
-        </svg>
-      </button>
-    </div>
-
-    <div class="gift-section">
-      <h1>Gift</h1>
-      <div class="gift-item">
-        01 —DogFancy—<br>
-        La imaginacion no es escape, es acceso. //<br>
-        //Imagination is not an escape, it is access.<br><br>
-        <a href="CRAZYDOGV1.mp3" download onclick="trackDownload('01 — DogFancy')">Aprender</a>
-        <!-- foil1 image ONLY on music tab -->
-        <img src="foil1.png" alt="">
+        <div class="track">
+          <audio id="audio-moed" preload="none">
+            <source src="Mixea_MediumNeutral_vision%201v.wav" type="audio/wav">
+          </audio>
+          <button class="play-btn" id="btn-moed" aria-label="Play Moed" onclick="togglePlay('audio-moed','btn-moed')">
+            <svg id="svg-moed" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <polygon points="6,4 20,12 6,20"/>
+            </svg>
+          </button>
+          <span class="track-name">Moed</span>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- CARD DEALER TAB -->
-  <div class="page" id="tab-store">
-    <h1>Card Dealer</h1>
-
-    <div class="product-card">
-      <img src="foil1.png" alt="Pokemon card signed">
-      <div class="product-info">
-        <p class="product-name">Pokemon card signed by D4ON3 </p>
-        <p class="product-desc">
-          Hand-signed.<br>
-          Ships US Only.
-        </p>
-        <p class="product-price">$8.99</p>
-        <!--
-          STRIPE: reemplaza el href con tu Payment Link de Stripe.
-          Ejemplo: https://buy.stripe.com/test_xxxxxxxxxxxxxxxx
-          Lo obtienes en: dashboard.stripe.com → Payment Links → Create link
-        -->
-        <a class="buy-btn"
-           href="https://book.stripe.com/aFaaEXcAo1iw6K5gpX43S01"
-           target="_blank"
-           onclick="gtag('event','click',{event_category:'Store',event_label:'Pokemon card signed'})">
-          Buy — $8.99
-        </a>
-      </div>
-    </div>
+  <div class="corner-note">
+    <div class="heb">Moed — מועד</div>
+    Hebreo: tiempo señalado, cita divina.
   </div>
 
   <div id="mouseAura"></div>
   <canvas id="energyParticles"></canvas>
 
   <script>
-    function showTab(id, btn) {
-      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-      document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
-      document.getElementById('tab-' + id).classList.add('active');
-      btn.classList.add('active');
-    }
-
     const PLAY_ICON  = '<polygon points="6,4 20,12 6,20"/>';
-    const PAUSE_ICON = '<rect x="5" y="4" width="4" height="16"/><rect x="15" y="4" width="4" height="16"/>';
+    const PAUSE_ICON = '<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>';
 
     function togglePlay(audioId, btnId) {
       const audio = document.getElementById(audioId);
-      const n     = btnId.split('-')[1];
-      const svg   = document.getElementById('svg-' + n);
+      const key   = btnId.replace('btn-','');
+      const svg   = document.getElementById('svg-' + key);
 
       document.querySelectorAll('audio').forEach(a => {
         if (a.id !== audioId) {
           a.pause();
-          const os = document.getElementById('svg-' + a.id.split('-')[1]);
-          if (os) os.innerHTML = PLAY_ICON;
+          const k = a.id.replace('audio-','');
+          const s = document.getElementById('svg-' + k);
+          if (s) s.innerHTML = PLAY_ICON;
         }
       });
 
       if (audio.paused) {
         audio.play();
-        svg.innerHTML  = PAUSE_ICON;
-        energyActive   = true;
-        burstIntensity = 22;
-        gtag('event','play',{event_category:'Audio',event_label:audioId});
+        svg.innerHTML = PAUSE_ICON;
       } else {
         audio.pause();
-        svg.innerHTML  = PLAY_ICON;
-        energyActive   = false;
-        burstIntensity = 10;
+        svg.innerHTML = PLAY_ICON;
       }
     }
 
     document.querySelectorAll('audio').forEach(audio => {
       audio.addEventListener('ended', () => {
-        const s = document.getElementById('svg-' + audio.id.split('-')[1]);
+        const k = audio.id.replace('audio-','');
+        const s = document.getElementById('svg-' + k);
         if (s) s.innerHTML = PLAY_ICON;
-        energyActive   = false;
-        burstIntensity = 10;
       });
     });
 
@@ -391,10 +339,9 @@
     canvas.width  = window.innerWidth;
     canvas.height = window.innerHeight;
 
-    let particles     = [];
-    let energyActive  = false;
-    let burstIntensity = 10;
-    let globalHue     = 0;
+    let particles  = [];
+    let globalHue  = 0;
+    const burstIntensity = 10;
 
     window.addEventListener('resize', () => {
       canvas.width  = window.innerWidth;
