@@ -90,6 +90,19 @@
       opacity: 0.65;
     }
 
+    .album-title {
+      display: block;
+      margin-top: 14px;
+      font-size: 26px;
+      letter-spacing: 8px;
+      opacity: 1;
+      font-weight: normal;
+    }
+
+    @media (max-width: 600px) {
+      .album-title { font-size: 22px; letter-spacing: 6px; }
+    }
+
     #mouseAura {
       position: fixed;
       top: 0; left: 0;
@@ -186,6 +199,37 @@
       opacity: 0.85;
     }
 
+    .download-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.35);
+      background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      outline: none;
+      text-decoration: none;
+      transition: background 0.2s, border-color 0.2s, transform 0.15s;
+    }
+
+    .download-btn:hover {
+      background: rgba(255,255,255,0.15);
+      border-color: rgba(255,255,255,0.8);
+      transform: scale(1.08);
+    }
+
+    .download-btn svg {
+      width: 14px;
+      height: 14px;
+      fill: white;
+      opacity: 0.9;
+    }
+
     .corner-note {
       position: fixed;
       bottom: 22px;
@@ -250,13 +294,8 @@
 
   <div class="page">
     <div class="legend">
-      Nefileo es el tiny album<br>
-      que precede a Divine Intervention.<br><br>
-      Divine Intervention tendrá<br>
-      un evento de early access<br>
-      para los más curiosos<br>
-      sobre el futuro.
-      <span class="accent">— Coming soon —</span>
+      Tiny Album<br>
+      <span class="album-title">Nefileo</span>
 
       <div class="tracks">
         <div class="track">
@@ -269,6 +308,11 @@
             </svg>
           </button>
           <span class="track-name">Anglo</span>
+          <a class="download-btn" href="Mixea_HighNeutral_scare%20v1.wav" download="Anglo.wav" aria-label="Download Anglo" onclick="gtag('event','download',{event_category:'Audio',event_label:'Anglo'})">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 3v12m0 0l-5-5m5 5l5-5M5 21h14" stroke="white" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
         </div>
 
         <div class="track">
@@ -281,6 +325,11 @@
             </svg>
           </button>
           <span class="track-name">Moed</span>
+          <a class="download-btn" href="Mixea_MediumNeutral_vision%201v.wav" download="Moed.wav" aria-label="Download Moed" onclick="gtag('event','download',{event_category:'Audio',event_label:'Moed'})">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 3v12m0 0l-5-5m5 5l5-5M5 21h14" stroke="white" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
         </div>
       </div>
     </div>
