@@ -230,6 +230,65 @@
       opacity: 0.9;
     }
 
+    /* ---- Venezuela donation banner ---- */
+    .venezuela-banner {
+      display: block;
+      margin: 46px auto 0;
+      max-width: 420px;
+      padding: 20px 36px;
+      background: #cf1020;
+      color: #ffffff;
+      text-decoration: none;
+      border-radius: 6px;
+      font-size: 15px;
+      font-weight: bold;
+      letter-spacing: 5px;
+      line-height: 1.7;
+      text-transform: uppercase;
+      box-shadow: 0 4px 18px rgba(207,16,32,0.45),
+                  inset 0 1px 0 rgba(255,255,255,0.18);
+      transition: transform 0.15s ease, background 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .venezuela-banner:hover {
+      transform: scale(1.03);
+      background: #e11d2b;
+      box-shadow: 0 6px 24px rgba(225,29,43,0.6),
+                  inset 0 1px 0 rgba(255,255,255,0.25);
+    }
+
+    .venezuela-banner:active {
+      transform: scale(0.99);
+    }
+
+    .venezuela-banner .en {
+      display: block;
+      font-size: 12px;
+      font-weight: normal;
+      letter-spacing: 4px;
+      opacity: 0.9;
+      margin-top: 4px;
+    }
+
+    .venezuela-banner .hint {
+      display: block;
+      font-size: 9px;
+      font-weight: normal;
+      letter-spacing: 2px;
+      opacity: 0.75;
+      margin-top: 10px;
+    }
+
+    @media (max-width: 600px) {
+      .venezuela-banner {
+        font-size: 13px;
+        letter-spacing: 3px;
+        padding: 18px 22px;
+        margin-top: 38px;
+      }
+      .venezuela-banner .en { font-size: 11px; letter-spacing: 3px; }
+    }
+
     .corner-note {
       position: fixed;
       bottom: 22px;
@@ -332,6 +391,12 @@
           </a>
         </div>
       </div>
+
+      <a class="venezuela-banner" href="Venezuela%20need%20you.pdf" download="Venezuela Needs You.pdf" aria-label="Descargar poster Ayuda para Venezuela" onclick="gtag('event','download',{event_category:'PDF',event_label:'Venezuela Poster'})">
+        Ayuda para Venezuela
+        <span class="en">Help for Venezuela</span>
+        <span class="hint">Descarga el poster / Download the poster</span>
+      </a>
     </div>
   </div>
 
