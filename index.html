@@ -48,6 +48,7 @@
       height: auto;
       display: block;
       margin: 0 auto;
+      mix-blend-mode: screen;
       filter: drop-shadow(0 0 25px rgba(255,255,255,0.25));
     }
 
@@ -542,11 +543,14 @@
     <div class="store-modal-backdrop" onclick="closeStore()"></div>
     <div class="store-modal-card">
       <button class="store-modal-close" onclick="closeStore()" aria-label="Cerrar">&times;</button>
-      <div class="product-name">Carta Firmada</div>
+      <div class="product-name">Carta Pokémon Firmada</div>
       <img src="foil1.png" alt="Carta firmada" style="display:block; margin:0 auto 16px; max-width:200px; border-radius:10px;">
       <div class="product-price">$8.99</div>
       <div class="shipping-note">Envíos únicamente a direcciones en Estados Unidos</div>
-      <div class="product-desc">Carta firmada a mano.<br>Precio por unidad — $8.99 c/u.</div>
+      <div class="product-desc">
+        Carta Pokémon firmada a mano.<br>
+        Precio por unidad — $8.99 c/u.
+      </div>
       <a href="https://book.stripe.com/aFaaEXcAo1iw6K5gpX43S01" class="buy-btn" target="_blank" rel="noopener" onclick="gtag('event','add_to_cart',{event_category:'Store',event_label:'Carta Firmada'});">Comprar</a>
     </div>
   </div>
